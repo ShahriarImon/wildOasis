@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import Image from "next/image";
+import aboutPic from "@/public/about.jpg";
 
 export const metadata: Metadata = {
   title: "About",
@@ -34,14 +36,23 @@ export default function Page() {
       </div>
 
       <div className="col-span-2">
-        <img
-          src="/about-1.jpg"
-          alt="Family sitting around a fire pit in front of cabin"
-        />
+        <div className="relative aspect-square">
+          <Image
+            className="object-cover"
+            fill
+            src="/about-1.jpg"
+            alt="Family sitting around a fire pit in front of cabin"
+          />
+        </div>
       </div>
 
       <div className="col-span-2">
-        <img src="/about-2.jpg" alt="Family that manages The Wild Oasis" />
+        <Image
+          src={aboutPic}
+          alt="Family that manages The Wild Oasis"
+          quality={80}
+          placeholder="blur"
+        />
       </div>
 
       <div className="col-span-3">

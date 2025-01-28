@@ -1,8 +1,14 @@
-import CabinCard from "@/app/_components/CabinCard";
+// import CabinCard from "@/app/_components/CabinCard";
 
 export default function Page() {
   // CHANGE
-  const cabins: any = [];
+  interface singleCabin {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+  }
+  const cabins: [] | singleCabin[] = [];
 
   return (
     <div>
@@ -18,13 +24,13 @@ export default function Page() {
         to paradise.
       </p>
 
-      {cabins.length > 0 && (
+      {/* {cabins.length > 0 && (
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
-          {cabins?.map((cabin: any) => (
+          {cabins.map((cabin) => (
             <CabinCard cabin={cabin} key={cabin.id} />
           ))}
         </div>
-      )}
+      )} */}
     </div>
   );
 }
