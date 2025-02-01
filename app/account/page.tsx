@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 
 const Account = () => {
   const [data1, setData] = React.useState<any>(null);
-  console.log("data1212:", data1);
   const fetchData = async () => {
     const response = await fetch(
       "https://jsonplaceholder.typicode.com/posts/1"
