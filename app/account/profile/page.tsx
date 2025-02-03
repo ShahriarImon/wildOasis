@@ -2,7 +2,7 @@ import SelectCountry from "@/app/_components/SelectCountry";
 
 export default function Profile() {
   // CHANGE
-  const countryFlag = "pt.jpg";
+  // const countryFlag = "pt.jpg";
   const nationality = "portugal";
 
   return (
@@ -36,11 +36,11 @@ export default function Profile() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <label htmlFor="nationality">Where are you from?</label>
-            <img
+            {/* <Image
               src={countryFlag}
               alt="Country flag"
               className="h-5 rounded-sm"
-            />
+            /> */}
           </div>
 
           <SelectCountry

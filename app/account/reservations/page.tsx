@@ -1,5 +1,4 @@
-import { de } from "date-fns/locale";
-import ReservationCard from "../../_components/ReservationCard";
+import ReservationCard, { Booking } from "../../_components/ReservationCard";
 
 export const metadata = {
   title: "Reservations",
@@ -9,14 +8,7 @@ export const metadata = {
 export default function Reservations() {
   // CHANGE
 
-  interface singleCabin {
-    id: number;
-    name: string;
-    description: string;
-    image: string;
-  }
-
-  const bookings: [] | singleCabin[] = [];
+  const bookings: Booking[] = [] as Booking[];
 
   return (
     <div>
