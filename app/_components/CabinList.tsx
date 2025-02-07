@@ -7,7 +7,7 @@ export interface singleCabin {
   maxCapacity: number;
   regularPrice: number;
   discount: number;
-  image: string;
+  // image: string;
 }
 
 const CabinList = async () => {
