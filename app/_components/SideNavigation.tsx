@@ -6,6 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 import SignOutButton from "./SignOutButton";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const navLinks = [
   {
@@ -26,6 +27,12 @@ const navLinks = [
 ];
 
 function SideNavigation() {
+  // const [s, setS] = useState(0);
+  // console.log("s1:", s);
+  // useEffect(() => {
+  //   setS((prev) => prev + 1);
+  //   setS((prev) => prev + 1);
+  // }, []);
   return (
     <nav className="border-r border-primary-900 flex flex-col justify-between h-full">
       <ul className="flex flex-col gap-2 h-full text-lg">

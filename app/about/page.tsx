@@ -47,12 +47,15 @@ export default function Page() {
       </div>
 
       <div className="col-span-2">
-        <Image
-          src={aboutPic}
-          alt="Family that manages The Wild Oasis"
-          quality={80}
-          placeholder="blur"
-        />
+        <div className="relative aspect-square">
+          <Image
+            src={aboutPic}
+            fill
+            alt="Family that manages The Wild Oasis"
+            quality={80}
+            placeholder="blur"
+          />
+        </div>
       </div>
 
       <div className="col-span-3">

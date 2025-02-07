@@ -12,7 +12,6 @@ export interface singleCabin {
 
 const CabinList = async () => {
   const cabins: [] | singleCabin[] = await getCabins();
-  console.log("cabins2121:", cabins);
   return (
     cabins?.length > 0 && (
       <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
