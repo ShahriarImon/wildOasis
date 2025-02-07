@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 import SignOutButton from "./SignOutButton";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 const navLinks = [
   {
