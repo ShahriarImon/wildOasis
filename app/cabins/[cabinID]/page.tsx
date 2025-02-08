@@ -1,6 +1,9 @@
 import React from "react";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
-import { getCabin, getCabins } from "@/app/_lib/data-service";
+import {
+  getCabin,
+  // getCabins
+} from "@/app/_lib/data-service";
 import Image from "next/image";
 
 // PLACEHOLDER DATA
