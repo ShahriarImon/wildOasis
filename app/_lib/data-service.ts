@@ -21,7 +21,7 @@ export async function getCabin<T>(id: number | string): Promise<T> {
     notFound();
   }
 
-  await new Promise((resolve) => setTimeout(resolve, 2500));
+  // await new Promise((resolve) => setTimeout(resolve, 2500));
 
   return data as T;
 }
