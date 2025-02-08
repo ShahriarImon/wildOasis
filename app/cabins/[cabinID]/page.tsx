@@ -20,10 +20,10 @@ interface CabinProps {
   };
 }
 
-export async function generateStaticParams() {
-  const data = await getCabins();
-  return data?.map((item) => ({ cabinID: String(item.id) }));
-}
+// export async function generateStaticParams() {
+//   const data = await getCabins();
+//   return data?.map((item) => ({ cabinID: String(item.id) }));
+// }
 
 export async function generateMetadata({ params }: CabinProps) {
   const { name, image, description } = await getCabin<Cabin>(params?.cabinID);
@@ -39,7 +39,7 @@ const Cabin = async ({ params }: CabinProps) => {
   const { name, maxCapacity, image, description } = await getCabin<Cabin>(
     params?.cabinID
   );
-
+  console.log("description121212:", description);
   return (
     <div className="max-w-6xl mx-auto mt-8">
       <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">
