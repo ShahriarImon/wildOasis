@@ -9,6 +9,7 @@ export interface singleCabin {
   discount: number;
   image: string;
 }
+export const dynamic = "force-dynamic";
 
 const CabinList = async () => {
   const cabins: [] | singleCabin[] = await getCabins();
