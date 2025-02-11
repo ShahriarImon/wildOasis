@@ -37,12 +37,11 @@ export async function generateMetadata({ params }: CabinProps) {
     image: image,
   };
 }
-export const revalidate = 0;
+// export const revalidate = 0;
 const Cabin = async ({ params }: CabinProps) => {
   const { name, maxCapacity, image, description } = await getCabin<Cabin>(
     params?.cabinID
   );
-  console.log("description121212:", description);
   return (
     <div className="max-w-6xl mx-auto mt-8">
       <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">

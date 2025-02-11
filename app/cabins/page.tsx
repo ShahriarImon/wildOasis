@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
-export const revalidate = 120;
+export const revalidate = 60;
 export default async function Page() {
   return (
     <div>
