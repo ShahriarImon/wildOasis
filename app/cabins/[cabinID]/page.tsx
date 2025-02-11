@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: CabinProps) {
     image: image,
   };
 }
-// export const revalidate = 0;
+export const revalidate = 0;
 const Cabin = async ({ params }: CabinProps) => {
   const { name, maxCapacity, image, description } = await getCabin<Cabin>(
     params?.cabinID
