@@ -1,6 +1,9 @@
 import React from "react";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
-import { getCabin, getCabins } from "@/app/_lib/data-service";
+import {
+  getCabin,
+  // getCabins
+} from "@/app/_lib/data-service";
 import Image from "next/image";
 
 // PLACEHOLDER DATA
@@ -20,10 +23,10 @@ interface CabinProps {
   };
 }
 
-export async function generateStaticParams() {
-  const data = await getCabins();
-  return data?.map((item) => ({ cabinID: String(item.id) }));
-}
+// export async function generateStaticParams() {
+//   const data = await getCabins();
+//   return data?.map((item) => ({ cabinID: String(item.id) }));
+// }
 
 export async function generateMetadata({ params }: CabinProps) {
   const { name, image, description } = await getCabin<Cabin>(params?.cabinID);
@@ -34,7 +37,7 @@ export async function generateMetadata({ params }: CabinProps) {
     image: image,
   };
 }
-
+// export const revalidate = 0;
 const Cabin = async ({ params }: CabinProps) => {
   const { name, maxCapacity, image, description } = await getCabin<Cabin>(
     params?.cabinID
