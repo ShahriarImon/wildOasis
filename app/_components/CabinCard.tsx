@@ -4,7 +4,14 @@ import Link from "next/link";
 import { singleCabin } from "./CabinList";
 
 function CabinCard({ cabin }: { cabin: singleCabin }) {
-  const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
+  const {
+    // id,
+    name,
+    maxCapacity,
+    regularPrice,
+    discount,
+    image,
+  } = cabin;
 
   return (
     <div className="flex border-primary-800 border">
