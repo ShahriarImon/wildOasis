@@ -27,6 +27,10 @@ interface CabinProps {
 //   const data = await getCabins();
 //   return data?.map((item) => ({ cabinID: String(item.id) }));
 // }
+// export async function generateStaticParams() {
+//   const data = await getCabins();
+//   return data?.map((item) => ({ cabinID: String(item.id) }));
+// }
 
 // export async function generateMetadata({ params }: CabinProps) {
 //   const { name, image, description } = await getCabin<Cabin>(params?.cabinID);
