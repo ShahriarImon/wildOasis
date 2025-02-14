@@ -41,7 +41,10 @@ interface CabinProps {
 const Cabin = async ({ params }: CabinProps) => {
   const response = await fetch(
     "https://news-letter-backend-4sxo.onrender.com/api/article/" +
-      params?.cabinID
+      params?.cabinID,
+    {
+      cache: "no-cache",
+    }
   );
   const data = await response.json();
   console.log("xcv:", data?.data?.title);
