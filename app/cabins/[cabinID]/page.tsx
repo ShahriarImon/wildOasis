@@ -1,9 +1,6 @@
-import React from "react";
+import TextExpander from "@/app/_components/TextExpander";
+import { fetchCabin } from "@/app/_lib/data-service";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
-import {
-  getCabin,
-  // getCabins
-} from "@/app/_lib/data-service";
 import Image from "next/image";
 
 // PLACEHOLDER DATA
@@ -28,15 +25,15 @@ interface CabinProps {
 //   return data?.map((item) => ({ cabinID: String(item.id) }));
 // }
 
-export async function generateMetadata({ params }: CabinProps) {
-  const { name, image, description } = await getCabin<Cabin>(params?.cabinID);
+// export async function generateMetadata({ params }: CabinProps) {
+//   const { name, image, description } = await getCabin<Cabin>(params?.cabinID);
 
-  return {
-    title: `Cabin-${name}`,
-    description: description,
-    image: image,
-  };
-}
+//   return {
+//     title: `Cabin-${name}`,
+//     description: description,
+//     image: image,
+//   };
+// }
 
 const Cabin = async ({ params }: CabinProps) => {
   // const response = await fetch(
@@ -48,7 +45,8 @@ const Cabin = async ({ params }: CabinProps) => {
   // );
   // const data = await response.json();
   // console.log("xcv:", data?.data?.title);
-  const { name, maxCapacity, image, description } = await getCabin<Cabin>(
+  // const { name, maxCapacity, image, description } = await getCabin<Cabin>(
+  const { name, maxCapacity, image, description } = await fetchCabin<Cabin>(
     params?.cabinID
   );
   // console.log("description121212:", description);
@@ -70,7 +68,9 @@ const Cabin = async ({ params }: CabinProps) => {
             Cabin {name}
           </h3>
 
-          <p className="text-lg text-primary-300 mb-10">{description}</p>
+          <p className="text-lg text-primary-300 mb-10">
+            <TextExpander>{description}</TextExpander>
+          </p>
 
           <ul className="flex flex-col gap-4 mb-7">
             <li className="flex gap-3 items-center">
