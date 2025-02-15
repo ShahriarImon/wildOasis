@@ -43,6 +43,7 @@ export async function fetchCabin<T>(id: number | string): Promise<T> {
           Accept: "application/vnd.pgrst.object+json", // Ensures single object response
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       }));
 
     // Handle errors
