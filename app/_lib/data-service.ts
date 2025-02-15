@@ -33,18 +33,20 @@ export async function fetchCabin<T>(id: number | string): Promise<T> {
     url.searchParams.append("id", `eq.${encodeURIComponent(id)}`);
 
     // Make the Fetch request
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        apikey: process.env.SUPABASE_KEY, // Required for Supabase auth
-        Authorization: `Bearer ${process.env.SUPABASE_KEY}`, // Required for Supabase auth
-        Accept: "application/vnd.pgrst.object+json", // Ensures single object response
-        "Content-Type": "application/json",
-      },
-    });
+    const response =
+      process.env.SUPABASE_KEY &&
+      (await fetch(url, {
+        method: "GET",
+        headers: {
+          apikey: process.env.SUPABASE_KEY, // Required for Supabase auth
+          Authorization: `Bearer ${process.env.SUPABASE_KEY}`, // Required for Supabase auth
+          Accept: "application/vnd.pgrst.object+json", // Ensures single object response
+          "Content-Type": "application/json",
+        },
+      }));
 
     // Handle errors
-    if (!response.ok) {
+    if (response && !response?.ok) {
       if (response.status === 406) {
         throw new Error("No cabin found or multiple cabins match the ID");
       }
@@ -52,7 +54,7 @@ export async function fetchCabin<T>(id: number | string): Promise<T> {
     }
 
     // Parse and return data
-    const data = await response.json();
+    const data = response && (await response.json());
     return data as T;
   } catch (error) {
     console.error(error);
