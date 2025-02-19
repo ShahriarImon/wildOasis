@@ -1,5 +1,3 @@
-import React from "react";
-
 import { ReactNode } from "react";
 import SideNavigation from "../_components/SideNavigation";
 

@@ -4,8 +4,9 @@ import {
   HomeIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
-import SignOutButton from "./SignOutButton";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import SignOutButton from "./SignOutButton";
 // import { useEffect, useState } from "react";
 
 const navLinks = [
@@ -27,12 +28,41 @@ const navLinks = [
 ];
 
 function SideNavigation() {
+  const [data2, setData2] = useState<number>(0);
+
+  useEffect(() => {
+    setData2(3);
+  }, []);
   // const [s, setS] = useState(0);
   // console.log("s1:", s);
   // useEffect(() => {
   //   setS((prev) => prev + 1);
   //   setS((prev) => prev + 1);
   // }, []);
+
+  type returnType<T> = T extends boolean
+    ? string[]
+    : T extends string
+    ? number[]
+    : undefined;
+
+  function conditionalReturn<T>(input: T): returnType<T> {
+    if (typeof input === "boolean") return ["result"] as returnType<T>;
+    if (typeof input === "string") return [1, 2, 3] as returnType<T>;
+    return undefined as returnType<T>;
+  }
+  const ans1 = conditionalReturn(true); // ["result"]
+  console.log("ans1:", ans1);
+  const ans2 = conditionalReturn("hello"); // [1, 2, 3]
+  console.log("ans2:", ans2);
+
+  const data = {
+    0: "T1",
+    1: "data2[]",
+    name: "test",
+  };
+
+  console.log("data-1:", data);
   return (
     <nav className="border-r border-primary-900 flex flex-col justify-between h-full">
       <ul className="flex flex-col gap-2 h-full text-lg">
@@ -49,7 +79,11 @@ function SideNavigation() {
         ))}
       </ul>
       <ul>
-        {" "}
+        <li className="mt-auto">
+          <strong>{data2}</strong>{" "}
+        </li>
+      </ul>
+      <ul>
         <li className="mt-auto">
           <SignOutButton />
         </li>
