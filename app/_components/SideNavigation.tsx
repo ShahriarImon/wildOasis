@@ -5,7 +5,6 @@ import {
   UserIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import SignOutButton from "./SignOutButton";
 // import { useEffect, useState } from "react";
 
@@ -28,13 +27,6 @@ const navLinks = [
 ];
 
 function SideNavigation() {
-  const [data2, setData2] = useState<number>(0);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setData2(3);
-    }, 2000);
-  }, []);
   // const [s, setS] = useState(0);
   // console.log("s1:", s);
   // useEffect(() => {
@@ -80,11 +72,7 @@ function SideNavigation() {
           </li>
         ))}
       </ul>
-      <ul>
-        <li className="mt-auto">
-          <strong>{data2}</strong>{" "}
-        </li>
-      </ul>
+
       <ul>
         <li className="mt-auto">
           <SignOutButton />
