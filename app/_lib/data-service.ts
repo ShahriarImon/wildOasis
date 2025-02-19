@@ -1,6 +1,6 @@
 import { eachDayOfInterval } from "date-fns";
-import supabase from "./supabase.js";
 import { notFound } from "next/navigation.js";
+import supabase from "./supabase.js";
 
 /////////////
 // GET
@@ -12,7 +12,7 @@ export async function getCabin<T>(id: number | string): Promise<T> {
     .select("*")
     .eq("id", id)
     .single();
-
+  console.log("Fetching data....");
   // For testing
   // await new Promise((res) => setTimeout(res, 1000));
 
@@ -24,6 +24,43 @@ export async function getCabin<T>(id: number | string): Promise<T> {
   // await new Promise((resolve) => setTimeout(resolve, 2500));
 
   return data as T;
+}
+
+export async function fetchCabin<T>(id: number | string): Promise<T> {
+  try {
+    // Construct the URL with query parameters
+    const url = new URL(`${process.env.SUPABASE_URL}/rest/v1/cabins`);
+    url.searchParams.append("id", `eq.${encodeURIComponent(id)}`);
+
+    // Make the Fetch request
+    const response =
+      process.env.SUPABASE_KEY &&
+      (await fetch(url, {
+        method: "GET",
+        headers: {
+          apikey: process.env.SUPABASE_KEY, // Required for Supabase auth
+          Authorization: `Bearer ${process.env.SUPABASE_KEY}`, // Required for Supabase auth
+          Accept: "application/vnd.pgrst.object+json", // Ensures single object response
+          "Content-Type": "application/json",
+        },
+        cache: "no-cache",
+      }));
+
+    // Handle errors
+    if (response && !response?.ok) {
+      if (response.status === 406) {
+        throw new Error("No cabin found or multiple cabins match the ID");
+      }
+      throw new Error(`Request failed: ${response.status}`);
+    }
+
+    // Parse and return data
+    const data = response && (await response.json());
+    return data as T;
+  } catch (error) {
+    console.error(error);
+    notFound();
+  }
 }
 
 export async function getCabinPrice(id: number | string) {
