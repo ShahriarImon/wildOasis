@@ -31,7 +31,9 @@ function SideNavigation() {
   const [data2, setData2] = useState<number>(0);
 
   useEffect(() => {
-    setData2(3);
+    setTimeout(() => {
+      setData2(3);
+    }, 2000);
   }, []);
   // const [s, setS] = useState(0);
   // console.log("s1:", s);
