@@ -3,7 +3,12 @@ import CabinList from "../_components/CabinList";
 import Filter from "../_components/Filter";
 import Spinner from "../_components/Spinner";
 export const revalidate = 60;
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { capacity?: string };
+}) {
+  const filter = searchParams?.capacity ?? "all";
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -21,7 +26,7 @@ export default async function Page() {
         <Filter />
       </div>
       <Suspense fallback={<Spinner />}>
-        <CabinList />
+        <CabinList filter={filter} />
       </Suspense>
     </div>
   );
