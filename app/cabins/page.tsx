@@ -1,5 +1,6 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import CabinList from "../_components/CabinList";
+import Filter from "../_components/Filter";
 import Spinner from "../_components/Spinner";
 export const revalidate = 60;
 export default async function Page() {
@@ -16,7 +17,9 @@ export default async function Page() {
         away from home. The perfect spot for a peaceful, calm vacation. Welcome
         to paradise.`}
       </p>
-
+      <div className="flex justify-end mb-8">
+        <Filter />
+      </div>
       <Suspense fallback={<Spinner />}>
         <CabinList />
       </Suspense>
