@@ -176,6 +176,7 @@ export async function getSettings() {
     throw new Error("Settings could not be loaded");
   }
 
+  await new Promise((res) => setTimeout(res, 2000));
   return data;
 }
 
