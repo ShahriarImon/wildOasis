@@ -40,6 +40,7 @@ interface CabinProps {
 
 const Cabin = async ({ params }: CabinProps) => {
   const cabin = await fetchCabin<Cabin>(params?.cabinID);
+  // console.log("cabin3232:", cabin);
   const { name, maxCapacity, image, description } = cabin;
 
   // console.log("description121212:", description);

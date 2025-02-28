@@ -1,0 +1,23 @@
+.my-daypicker {
+  --cell-size: 38px; /* Base size for cells */
+  --day-margin: 0px;
+}
+
+.my-daypicker .rdp-cell {
+  width: var(--cell-size) !important;
+  height: var(--cell-size);
+}
+
+.my-daypicker .rdp-day {
+  width: var(--cell-size) !important;
+  height: var(--cell-size);
+  margin: var(--day-margin);
+  padding: 0;
+  font-size: 14px; /* Adjust font size for small cells */
+}
+.rdp-root {
+  --rdp-day-height: 38px;
+  --rdp-day-width: 38px;
+  --rdp-day_button-height: 38px;
+  --rdp-day_button-width: 38px;
+}

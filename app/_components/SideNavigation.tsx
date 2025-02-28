@@ -34,29 +34,29 @@ function SideNavigation() {
   //   setS((prev) => prev + 1);
   // }, []);
 
-  type returnType<T> = T extends boolean
-    ? string[]
-    : T extends string
-    ? number[]
-    : undefined;
+  // type returnType<T> = T extends boolean
+  //   ? string[]
+  //   : T extends string
+  //   ? number[]
+  //   : undefined;
 
-  function conditionalReturn<T>(input: T): returnType<T> {
-    if (typeof input === "boolean") return ["result"] as returnType<T>;
-    if (typeof input === "string") return [1, 2, 3] as returnType<T>;
-    return undefined as returnType<T>;
-  }
-  const ans1 = conditionalReturn(true); // ["result"]
-  console.log("ans1:", ans1);
-  const ans2 = conditionalReturn("hello"); // [1, 2, 3]
-  console.log("ans2:", ans2);
+  // function conditionalReturn<T>(input: T): returnType<T> {
+  //   if (typeof input === "boolean") return ["result"] as returnType<T>;
+  //   if (typeof input === "string") return [1, 2, 3] as returnType<T>;
+  //   return undefined as returnType<T>;
+  // }
+  // const ans1 = conditionalReturn(true); // ["result"]
+  // console.log("ans1:", ans1);
+  // const ans2 = conditionalReturn("hello"); // [1, 2, 3]
+  // console.log("ans2:", ans2);
 
-  const data = {
-    0: "T1",
-    1: "data2[]",
-    name: "test",
-  };
+  // const data = {
+  //   0: "T1",
+  //   1: "data2[]",
+  //   name: "test",
+  // };
 
-  console.log("data-1:", data);
+  // console.log("data-1:", data);
   return (
     <nav className="border-r border-primary-900 flex flex-col justify-between h-full">
       <ul className="flex flex-col gap-2 h-full text-lg">

@@ -12,7 +12,7 @@ export async function getCabin<T>(id: number | string): Promise<T> {
     .select("*")
     .eq("id", id)
     .single();
-  console.log("Fetching data....");
+  // console.log("Fetching data....");
   // For testing
   // await new Promise((res) => setTimeout(res, 1000));
 

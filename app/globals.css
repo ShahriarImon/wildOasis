@@ -41,6 +41,15 @@
 * {
   color: theme("colors.primary.200");
 }
-select option {
+/* select option {
   color: black;
 }
+
+.rdp-months {
+  margin: 0;
+  flex-wrap: nowrap !important;
+}
+
+.rdp-months .rde-month td {
+  width: 20px !important;
+} */
