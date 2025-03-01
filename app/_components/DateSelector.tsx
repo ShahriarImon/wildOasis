@@ -42,7 +42,6 @@ function DateSelector({
   bookedDates: BookedDates[];
 }) {
   const { range, handleRange, resetRange } = useReservation();
-  console.log("range12:", range);
 
   const displayRange: DateRange = range;
 
@@ -61,8 +60,8 @@ function DateSelector({
         <DayPicker
           className="pt-6 place-self-center my-daypicker"
           mode="range"
-          onSelect={(val) => handleRange(val)}
-          selected={range}
+          onSelect={(val) => handleRange(val as DateRange)}
+          selected={displayRange}
           min={minBookingLength + 1}
           max={maxBookingLength}
           fromMonth={new Date()}
