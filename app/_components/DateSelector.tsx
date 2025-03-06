@@ -12,25 +12,30 @@ export interface BookedDates {
   endDate: Date;
   numNights: number;
 }
-import { differenceInDays, isPast, isSameDay } from "date-fns";
+import {
+  differenceInDays,
+  isPast,
+  isSameDay,
+  isWithinInterval,
+} from "date-fns";
 import { DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { Cabin } from "../cabins/[cabinID]/page";
 import { useReservation } from "./ReservationProvider";
 import "./custom.css";
 
-// function isAlreadyBooked(range: DateRange, datesArr: BookedDates[]) {
-//   return (
-//     range.from &&
-//     range.to &&
-//     datesArr.some((date) =>
-//       isWithinInterval(new Date(date.numNights), {
-//         start: range.from,
-//         end: range.to,
-//       })
-//     )
-//   );
-// }
+function isAlreadyBooked(range: DateRange, datesArr: BookedDates[]) {
+  return (
+    range?.from &&
+    range?.to &&
+    datesArr.some((date) =>
+      isWithinInterval(new Date(date.numNights), {
+        start: range.from!,
+        end: range.to!,
+      })
+    )
+  );
+}
 
 function DateSelector({
   settings,
@@ -43,7 +48,12 @@ function DateSelector({
 }) {
   const { range, handleRange, resetRange } = useReservation();
 
-  const displayRange: DateRange = range;
+  const displayRange = isAlreadyBooked(range, bookedDates)
+    ? {
+        from: undefined,
+        to: undefined,
+      }
+    : range;
 
   const { regularPrice, discount } = cabin;
   const numNights =
@@ -72,8 +82,10 @@ function DateSelector({
           showOutsideDays
           disabled={(curDate) =>
             isPast(curDate) ||
-            bookedDates.some((date) =>
-              isSameDay(new Date(date.numNights), curDate)
+            bookedDates.some(
+              (date) =>
+                isSameDay(date.startDate, curDate) ||
+                isSameDay(date.endDate, curDate)
             )
           }
         />

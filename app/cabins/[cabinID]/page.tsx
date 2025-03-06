@@ -18,18 +18,16 @@ export interface Cabin {
   image2: string;
 }
 interface CabinProps {
-  params: {
-    cabinID: string;
-  };
+  params: Promise<{ cabinID: string }>;
 }
 
-// export async function generateStaticParams() {
+// export async function generateStaticparamList() {
 //   const data = await getCabins();
 //   return data?.map((item) => ({ cabinID: String(item.id) }));
 // }
 
-// export async function generateMetadata({ params }: CabinProps) {
-//   const { name, image, description } = await getCabin<Cabin>(params?.cabinID);
+// export async function generateMetadata({ paramList }: CabinProps) {
+//   const { name, image, description } = await getCabin<Cabin>(paramList?.cabinID);
 
 //   return {
 //     title: `Cabin-${name}`,
@@ -39,7 +37,8 @@ interface CabinProps {
 // }
 
 const Cabin = async ({ params }: CabinProps) => {
-  const cabin = await fetchCabin<Cabin>(params?.cabinID);
+  const paramList = await params;
+  const cabin = await fetchCabin<Cabin>(paramList?.cabinID);
   // console.log("cabin3232:", cabin);
   const { name, maxCapacity, image, description } = cabin;
 

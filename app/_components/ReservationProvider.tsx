@@ -16,9 +16,7 @@ function ReservationProvider({ children }: { children: ReactNode }) {
     from: undefined,
     to: undefined,
   });
-  console.log("range-zzz:", range);
   const handleRange = (selectedRange: DateRange) => {
-    console.log("selectedRange:", selectedRange);
     setRange(selectedRange);
   };
   const resetRange = () => setRange({ from: undefined, to: undefined });

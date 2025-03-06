@@ -3,12 +3,13 @@ import CabinList from "../_components/CabinList";
 import Filter from "../_components/Filter";
 import Spinner from "../_components/Spinner";
 export const revalidate = 60;
-export default async function Page({
+export default async function Cabin({
   searchParams,
 }: {
-  searchParams: { capacity?: string };
+  searchParams: Promise<{ capacity?: string }>;
 }) {
-  const filter = searchParams?.capacity ?? "all";
+  const params = await searchParams;
+  const filter = params?.capacity ?? "all";
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">

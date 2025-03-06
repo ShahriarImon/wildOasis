@@ -1,13 +1,13 @@
 import { getBookedDatesByCabinId, getSettings } from "../_lib/data-service";
 import { Cabin } from "../cabins/[cabinID]/page";
-import DateSelector from "./DateSelector";
+import DateSelector, { BookedDates } from "./DateSelector";
 import ReservationForm from "./ReservationForm";
 import { ReservationProvider } from "./ReservationProvider";
 
 const Reservation = async ({ cabin }: { cabin: Cabin }) => {
   const [settings, bookedDates] = await Promise.all([
     getSettings(),
-    getBookedDatesByCabinId(cabin?.id),
+    getBookedDatesByCabinId<BookedDates>(cabin?.id),
   ]);
   console.log("bookedDates21:", bookedDates);
   return (

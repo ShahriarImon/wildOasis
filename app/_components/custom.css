@@ -21,3 +21,12 @@
   --rdp-day_button-height: 38px;
   --rdp-day_button-width: 38px;
 }
+/* .rdp-selected {
+  background-color: rgb(223, 192, 58);
+}
+.rdp-selected .rdp-range_start {
+  background-color: rgb(223, 192, 58) !important;
+}
+.rdp-selected .rdp-range_end {
+  background-color: rgb(223, 192, 58) !important;
+} */

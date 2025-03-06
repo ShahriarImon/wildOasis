@@ -138,17 +138,18 @@ export async function getBookings(guestId: number | string) {
   return data;
 }
 
-export async function getBookedDatesByCabinId(cabinId: number | string) {
+export async function getBookedDatesByCabinId<T>(cabinId: number | string) {
   let today: Date | string = new Date();
   today.setUTCHours(0, 0, 0, 0);
   today = today.toISOString();
 
   // Getting all bookings
   const { data, error } = await supabase
+
     .from("bookings")
     .select("*")
-    .eq("cabinId", cabinId)
-    .or(`startDate.gte.${today},status.eq.checked-in`);
+    .eq("cabinId", cabinId);
+  // .or(`startDate.gte.${today},status.eq.unConfirmed`);
 
   if (error) {
     console.error(error);
@@ -157,6 +158,7 @@ export async function getBookedDatesByCabinId(cabinId: number | string) {
 
   // Converting to actual dates to be displayed in the date picker
   const bookedDates = data
+
     .map((booking) => {
       return eachDayOfInterval({
         start: new Date(booking.startDate),
@@ -164,8 +166,8 @@ export async function getBookedDatesByCabinId(cabinId: number | string) {
       });
     })
     .flat();
-
-  return bookedDates;
+  // console.log("bookedDates2121212:", bookedDates);
+  return bookedDates as T[];
 }
 
 export async function getSettings() {
