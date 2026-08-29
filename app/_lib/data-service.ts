@@ -77,7 +77,7 @@ export async function getCabinPrice(id: number | string) {
   return data;
 }
 
-export const getCabins = async function () {
+const getCabins = async function () {
   const { data, error } = await supabase
     .from("cabins")
     .select("id, name, maxCapacity, regularPrice, discount, image")
@@ -90,6 +90,46 @@ export const getCabins = async function () {
   return data;
 };
 
+interface FetchParam {
+  select: string;
+  order?: string;
+}
+
+export async function fetchCabins(endPoint: string, queryObj: FetchParam) {
+  const supabaseKey = process.env.SUPABASE_KEY;
+  if (!supabaseKey) {
+    throw new Error("SUPABASE_KEY is not defined in environment variables");
+  }
+
+  const baseUrl = `${process.env.SUPABASE_URL}/rest/v1`;
+  endPoint = endPoint.startsWith("/") ? endPoint : `/${endPoint}`;
+  const url = new URL(`${baseUrl}` + endPoint);
+
+  Object.entries(queryObj).forEach(([key, value]) =>
+    url.searchParams.set(key, value),
+  );
+
+  console.log("url:", url);
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch cabins:", error);
+    throw error;
+  }
+}
 // Guests are uniquely identified by their email address
 export async function getGuest(email: string) {
   const {
@@ -125,7 +165,7 @@ export async function getBookings(guestId: number | string) {
     .from("bookings")
     // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
     .select(
-      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
+      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)",
     )
     .eq("guestId", guestId)
     .order("startDate");
@@ -185,7 +225,7 @@ export async function getSettings() {
 export async function getCountries() {
   try {
     const res = await fetch(
-      "https://restcountries.com/v2/all?fields=name,flag"
+      "https://restcountries.com/v2/all?fields=name,flag",
     );
     const countries = await res.json();
     return countries;
@@ -230,7 +270,7 @@ export async function createBooking(newBooking: number | string) {
 // The updatedFields is an object which should ONLY contain the updated data
 export async function updateGuest(
   id: number | string,
-  updatedFields: number | string
+  updatedFields: number | string,
 ) {
   const { data, error } = await supabase
     .from("guests")
@@ -248,7 +288,7 @@ export async function updateGuest(
 
 export async function updateBooking(
   id: number | string,
-  updatedFields: number | string
+  updatedFields: number | string,
 ) {
   const { data, error } = await supabase
     .from("bookings")

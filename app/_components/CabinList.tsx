@@ -1,4 +1,4 @@
-import { getCabins } from "../_lib/data-service";
+import { fetchCabins } from "../_lib/data-service";
 import CabinCard from "./CabinCard";
 export interface singleCabin {
   id: number;
@@ -10,7 +10,10 @@ export interface singleCabin {
 }
 
 const CabinList = async ({ filter }: { filter: string }) => {
-  const cabins: [] | singleCabin[] = await getCabins();
+  const cabins: [] | singleCabin[] = await fetchCabins("/cabins", {
+    select: "id,name,maxCapacity,regularPrice,discount,image",
+    order: "name",
+  });
   let displayedCabins: [] | singleCabin[] = [];
   if (filter == "all") {
     displayedCabins = cabins;
@@ -20,7 +23,7 @@ const CabinList = async ({ filter }: { filter: string }) => {
   }
   if (filter == "medium") {
     displayedCabins = cabins?.filter(
-      (cabin) => cabin.maxCapacity >= 4 && cabin.maxCapacity <= 7
+      (cabin) => cabin.maxCapacity >= 4 && cabin.maxCapacity <= 7,
     );
   }
   if (filter == "large") {
