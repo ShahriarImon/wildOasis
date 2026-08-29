@@ -26,6 +26,33 @@ export async function getCabin<T>(id: number | string): Promise<T> {
   return data as T;
 }
 
+export async function getCabinPrice(id: number | string) {
+  const { data, error } = await supabase
+    .from("cabins")
+    .select("regularPrice, discount")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error(error);
+  }
+
+  return data;
+}
+
+// const getCabins = async function () {
+//   const { data, error } = await supabase
+//     .from("cabins")
+//     .select("id, name, maxCapacity, regularPrice, discount, image")
+//     .order("name");
+
+//   if (error) {
+//     console.error(error);
+//     throw new Error("Cabins could not be loaded");
+//   }
+//   return data;
+// };
+
 export async function fetchCabin<T>(id: number | string): Promise<T> {
   try {
     // Construct the URL with query parameters
@@ -62,33 +89,6 @@ export async function fetchCabin<T>(id: number | string): Promise<T> {
     notFound();
   }
 }
-
-export async function getCabinPrice(id: number | string) {
-  const { data, error } = await supabase
-    .from("cabins")
-    .select("regularPrice, discount")
-    .eq("id", id)
-    .single();
-
-  if (error) {
-    console.error(error);
-  }
-
-  return data;
-}
-
-const getCabins = async function () {
-  const { data, error } = await supabase
-    .from("cabins")
-    .select("id, name, maxCapacity, regularPrice, discount, image")
-    .order("name");
-
-  if (error) {
-    console.error(error);
-    throw new Error("Cabins could not be loaded");
-  }
-  return data;
-};
 
 interface FetchParam {
   select: string;
@@ -225,10 +225,17 @@ export async function getSettings() {
 export async function getCountries() {
   try {
     const res = await fetch(
-      "https://restcountries.com/v2/all?fields=name,flag",
+      "https://api.restcountries.com/countries/v5?fields=name,flag",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REST_COUNTRIES_KEY}`,
+        },
+      },
     );
     const countries = await res.json();
-    return countries;
+    console.log("countries:", countries?.data?.objects[0]);
+    console.log("ytt333:", countries?.data?.objects[0]?.names?.common);
+    return countries?.data?.objects;
   } catch {
     throw new Error("Could not fetch countries");
   }
