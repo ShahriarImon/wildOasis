@@ -1,4 +1,4 @@
-import { fetchCabins } from "../_lib/data-service";
+import { fetchList } from "../_lib/data-service";
 import CabinCard from "./CabinCard";
 export interface singleCabin {
   id: number;
@@ -10,11 +10,11 @@ export interface singleCabin {
 }
 
 const CabinList = async ({ filter }: { filter: string }) => {
-  const cabins: [] | singleCabin[] = await fetchCabins("/cabins", {
+  const cabins = await fetchList<singleCabin>("/cabins", {
     select: "id,name,maxCapacity,regularPrice,discount,image",
     order: "name",
   });
-  let displayedCabins: [] | singleCabin[] = [];
+  let displayedCabins: singleCabin[] = [];
   if (filter == "all") {
     displayedCabins = cabins;
   }

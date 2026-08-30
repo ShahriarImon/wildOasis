@@ -4,10 +4,10 @@ import { useState } from "react";
 function TextExpander({ children }: { children: string }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const displayText =
-    children.length >= 40
+    children?.length >= 40
       ? isExpanded
         ? children
-        : children.split(" ").slice(0, 40).join(" ") + "..."
+        : children?.split(" ").slice(0, 40).join(" ") + "..."
       : children;
 
   return (
@@ -17,7 +17,7 @@ function TextExpander({ children }: { children: string }) {
         className="text-primary-700 border-b border-primary-700 leading-3 pb-1"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        {children.length >= 40 && (isExpanded ? "Show less" : "Show more")}
+        {children?.length >= 40 && (isExpanded ? "Show less" : "Show more")}
       </button>
     </span>
   );

@@ -1,7 +1,7 @@
 import Reservation from "@/app/_components/Reservation";
 import Spinner from "@/app/_components/Spinner";
 import TextExpander from "@/app/_components/TextExpander";
-import { fetchCabin } from "@/app/_lib/data-service";
+import { fetchList } from "@/app/_lib/data-service";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -38,9 +38,13 @@ interface CabinProps {
 
 const Cabin = async ({ params }: CabinProps) => {
   const paramList = await params;
-  const cabin = await fetchCabin<Cabin>(paramList?.cabinID);
+  console.log("paramList:", paramList);
+  const cabin = await fetchList<Cabin>("/cabins", {
+    id: "eq." + paramList?.cabinID,
+  });
   // console.log("cabin3232:", cabin);
-  const { name, maxCapacity, image, description } = cabin;
+  const { name, maxCapacity, image, description } = cabin[0];
+  console.log("cabin111:", cabin);
 
   // console.log("description121212:", description);
   return (
@@ -105,7 +109,7 @@ const Cabin = async ({ params }: CabinProps) => {
             </div>
           }
         >
-          <Reservation cabin={cabin} />
+          <Reservation cabin={cabin?.[0]} />
         </Suspense>
       </div>
     </>

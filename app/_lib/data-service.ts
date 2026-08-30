@@ -90,12 +90,19 @@ export async function fetchCabin<T>(id: number | string): Promise<T> {
   }
 }
 
-interface FetchParam {
-  select: string;
+interface FetchListParam {
+  select?: string;
   order?: string;
+  id?: string;
+}
+interface FetchItemParam {
+  id: string;
 }
 
-export async function fetchCabins(endPoint: string, queryObj: FetchParam) {
+export async function fetchList<T>(
+  endPoint: string,
+  queryObj: FetchListParam,
+): Promise<T[]> {
   const supabaseKey = process.env.SUPABASE_KEY;
   if (!supabaseKey) {
     throw new Error("SUPABASE_KEY is not defined in environment variables");
@@ -124,7 +131,45 @@ export async function fetchCabins(endPoint: string, queryObj: FetchParam) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    return data;
+    return data as T[];
+  } catch (error) {
+    console.error("Failed to fetch cabins:", error);
+    throw error;
+  }
+}
+export async function fetchItem<T>(
+  endPoint: string,
+  queryObj: FetchItemParam,
+): Promise<T> {
+  const supabaseKey = process.env.SUPABASE_KEY;
+  if (!supabaseKey) {
+    throw new Error("SUPABASE_KEY is not defined in environment variables");
+  }
+
+  const baseUrl = `${process.env.SUPABASE_URL}/rest/v1`;
+  endPoint = endPoint.startsWith("/") ? endPoint : `/${endPoint}`;
+  const url = new URL(`${baseUrl}` + endPoint);
+
+  Object.entries(queryObj).forEach(([key, value]) =>
+    url.searchParams.set(key, value),
+  );
+
+  console.log("url:", url);
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data as T;
   } catch (error) {
     console.error("Failed to fetch cabins:", error);
     throw error;
