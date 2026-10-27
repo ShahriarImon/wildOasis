@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Page() {
+  console.log("hello 27-10-26");
   return (
     <main className="mt-24">
       <Image
