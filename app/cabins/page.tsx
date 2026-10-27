@@ -3,6 +3,11 @@ import CabinList from "../_components/CabinList";
 import Filter from "../_components/Filter";
 import Spinner from "../_components/Spinner";
 export const revalidate = 60;
+
+export const metadata = {
+  title: "cabin",
+};
+
 export default async function Cabin({
   searchParams,
 }: {

@@ -26,31 +26,29 @@ interface CabinProps {
 //   return data?.map((item) => ({ cabinID: String(item.id) }));
 // }
 
-// export async function generateMetadata({ paramList }: CabinProps) {
-//   const { name, image, description } = await getCabin<Cabin>(paramList?.cabinID);
+export async function generateMetadata({ params }: CabinProps) {
+  const paramList = await params;
+  const [{ name, description, image }] = await fetchList<Cabin>("/cabins", {
+    id: "eq." + paramList?.cabinID,
+  });
 
-//   return {
-//     title: `Cabin-${name}`,
-//     description: description,
-//     image: image,
-//   };
-// }
+  return {
+    title: `Cabin ${name}`,
+    description: description,
+    image: image,
+  };
+}
 
 const Cabin = async ({ params }: CabinProps) => {
   const paramList = await params;
-  console.log("paramList:", paramList);
   const cabin = await fetchList<Cabin>("/cabins", {
     id: "eq." + paramList?.cabinID,
   });
-  // console.log("cabin3232:", cabin);
   const { name, maxCapacity, image, description } = cabin[0];
-  console.log("cabin111:", cabin);
 
-  // console.log("description121212:", description);
   return (
     <>
       <div className="max-w-6xl mx-auto mt-8">
-        {/* {data?.data?.title} */}
         <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">
           <div className="relative scale-[1.15] -translate-x-3">
             <Image
